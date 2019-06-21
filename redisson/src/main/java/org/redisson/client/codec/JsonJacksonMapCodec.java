@@ -50,14 +50,7 @@ public class JsonJacksonMapCodec extends JsonJacksonCodec {
         @Override
         public ByteBuf encode(Object in) throws IOException {
             ByteBuf out = ByteBufAllocator.DEFAULT.buffer();
-            try {
-                ByteBufOutputStream os = new ByteBufOutputStream(out);
-                mapObjectMapper.writeValue((OutputStream)os, in);
-                return os.buffer();
-            } catch (IOException e) {
-                out.release();
-                throw e;
-            }
+            return getByteBuf(in, out);
         }
     };
     
